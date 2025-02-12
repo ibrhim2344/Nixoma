@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nixoma - العملة الرقمية المستقبلية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --light-green: #90EE90;
+            --light-blue: #87CEEB;
+            --white: #ffffff;
+            --dark-bg: #1a1a1a;
+            --dark-text: #e0e0e0;
+        }
+
+        [data-theme="light"] {
+            --background: var(--white);
+            --text: #333333;
+            --card-bg: #f5f5f5;
+        }
+
+        [data-theme="dark"] {
+            --background: var(--dark-bg);
+            --text: var(--dark-text);
+            --card-bg: #2d2d2d;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: var(--light-blue);
+            color: var(--white);
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--light-green), var(--light-blue));
+            padding: 100px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-button {
+            background: var(--light-blue);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--card-bg);
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 60px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--light-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-blue);
+            background: rgba(var(--light-blue-rgb), 0.1);
+        }
+
+        .nav-links a.active {
+            color: var(--light-blue);
+            background: rgba(var(--light-blue-rgb), 0.1);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                width: 100%;
+                height: auto;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 20px;
+                transition: right 0.3s ease;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                padding: 15px;
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--card-bg);
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--light-blue);
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: var(--text);
+            text-align: center;
+            border-top: 1px solid var(--text);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <header class="header">
+        <div class="nav-container">
+            <a href="#home">
+                <img src="/assets/images/LogoMakerCa-1737924704306.svg" alt="Nixoma Logo" class="nav-logo">
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links">
+                <a href="#home" class="active">الرئيسية</a>
+                <a href="#features">المميزات</a>
+                <a href="#about">عن نيكسوما</a>
+                <a href="#contact">اتصل بنا</a>
+            </nav>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-sun light-icon"></i>
+                <i class="fas fa-moon dark-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <img src="/assets/images/LogoMakerCa-1737924704306.svg" alt="Nixoma Logo" class="logo">
+        <h1>Nixoma</h1>
+        <p>مستقبل التداول الرقمي</p>
+        <a href="#" class="cta-button">ابدأ الآن</a>
+    </section>
+
+    <div class="container">
+        <section class="features" id="features">
+            <h2 class="section-title">المميزات الرئيسية</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>الاستقلالية واللامركزية</h3>
+                    <ul>
+                        <li>نظام مستقل عن أي جهة تحكم مركزية</li>
+                        <li>شفافية كاملة في النظام المالي</li>
+                        <li>حرية التداول العالمي</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>الأمان والخصوصية</h3>
+                    <ul>
+                        <li>تشفير متقدم لجميع المعاملات</li>
+                        <li>حماية ضد التلاعب والاختراق</li>
+                        <li>تقنيات التجزئة المتطورة</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>السرعة والكفاءة</h3>
+                    <ul>
+                        <li>معاملات فورية عبر العالم</li>
+                        <li>رسوم تحويل منخفضة</li>
+                        <li>نظام إثبات الحصة (PoS)</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>التوسع العالمي</h3>
+                    <ul>
+                        <li>دعم المعاملات الدولية</li>
+                        <li>تكامل مع الأسواق العالمية</li>
+                        <li>شبكة شراكات واسعة</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-link"></i>
+                    <h3>الربط بالأصول الثابتة</h3>
+                    <ul>
+                        <li>دعم بالذهب والنفط</li>
+                        <li>استقرار القيمة</li>
+                        <li>حماية ضد التقلبات</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>العقود الذكية</h3>
+                    <ul>
+                        <li>تنفيذ تلقائي للمعاملات</li>
+                        <li>تقليل تكاليف الوساطة</li>
+                        <li>شفافية في التعاملات</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- New About Section -->
+        <section id="about" class="about-section">
+            <h2 class="section-title">عن نيكسوما</h2>
+            
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>الأهداف الرئيسية</h3>
+                    <ul>
+                        <li>تسهيل التبادل التجاري الدولي</li>
+                        <li>ربط العملة بالأصول الثابتة</li>
+                        <li>إدارة القطاعات الحساسة</li>
+                    </ul>
+                </div>
+
+                <div class="about-card">
+                    <h3>التقنيات المستخدمة</h3>
+                    <ul>
+                        <li>بلوكتشين لامركزي</li>
+                        <li>إثبات الحصة (PoS)</li>
+                        <li>العقود الذكية</li>
+                        <li>التشفير المتقدم</li>
+                    </ul>
+                </div>
+
+                <div class="about-card">
+                    <h3>المزايا الرئيسية</h3>
+                    <ul>
+                        <li>الاستقلالية واللامركزية</li>
+                        <li>الأمان والخصوصية</li>
+                        <li>السرعة والكفاءة</li>
+                        <li>التوسع العالمي</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap">
+                <h2 class="section-title">خارطة الطريق</h2>
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-year">2025</div>
+                    <p>إطلاق العملة والتقنيات الأساسية وتنفيذ الشراكات مع البنوك المركزية</p>
+                </div>
+
+                <div class="roadmap-item">
+                    <div class="roadmap-year">2026</div>
+                    <p>بناء وتوسيع شبكة التبادل العالمية والربط بالأصول الثابتة</p>
+                </div>
+
+                <div class="roadmap-item">
+                    <div class="roadmap-year">2027</div>
+                    <p>توسيع الاستخدام العالمي في القطاعات الحيوية والتكامل مع الأنظمة المالية</p>
+                </div>
+
+                <div class="roadmap-item">
+                    <div class="roadmap-year">2028</div>
+                    <p>تحويل نيكسوما إلى العملة الرقمية العالمية الرئيسية وإطلاق تقنيات مبتكرة</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2 class="section-title">اتصل بنا</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h3>مكتبنا الرئيسي</h3>
+                        <ul class="contact-details">
+                            <li>
+                                <span>المملكة العربية السعودية، الرياض</span>
+                                <i class="fas fa-map-marker-alt"></i>
+                            </li>
+                            <li>
+                                <span>info@nixoma.com</span>
+                                <i class="fas fa-envelope"></i>
+                            </li>
+                            <li>
+                                <span>+966 50 000 0000</span>
+                                <i class="fas fa-phone"></i>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>ساعات العمل</h3>
+                        <p>من الأحد إلى الخميس</p>
+                        <p>9:00 صباحاً - 5:00 مساءً</p>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm" onsubmit="return handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">الاسم الكامل</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">رسالتك</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" target="_blank" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" target="_blank" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="#" target="_blank" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                جميع الحقوق محفوظة &copy; <span id="year"></span> Nixoma
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+        }
+
+        // Update copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            // هنا يمكن إضافة كود للتعامل مع إرسال النموذج
+            alert('تم استلام رسالتك بنجاح! سنتواصل معك قريباً.');
+            event.target.reset();
+            return false;
+        }
+
+        // Add active class to nav links based on scroll position
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                window.scrollTo({
+                    top: target.offsetTop - 60,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
